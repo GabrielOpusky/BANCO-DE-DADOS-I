@@ -20,7 +20,7 @@ Importante:
 - No mínimo um relacionamento muitos-para-muitos
 
 - Não é necessário utilizar generalização/especialização
-<=====================================///=================================================>
+<=====================================///================================================>
 Exercício 1
 Banco de dados pedido produto.
 
@@ -52,4 +52,4 @@ Consultas para o banco de dados pedido-produto
 8. Apresentar o código do pedido, o nome do cliente e a data do pedido para os pedidos que ainda não foram entregues.
 
 9. Apresentar o código do pedido, nome do cliente, nome do produto, total produto (quantidade*preço do produto). Ordenar pelo código do pedido e pelo nome do produto.
-<=====================================///=================================================>
+<=====================================///================================================>
