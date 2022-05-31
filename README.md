@@ -33,6 +33,7 @@ Criar o arquivo create.sql (create das tabelas e das sequences).
 Criar o arquivo drop (drop das tabelas e das sequences).
 Criar o arquivo insert (com o insert das tabelas).
 <=====================================///=================================================>
+Exercício 2
 Consultas para o banco de dados pedido-produto
 
 1. Apresentar o nomes dos produtos em ordem crescente.
