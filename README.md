@@ -1,7 +1,7 @@
 # Banco-De-Dado-I
 Neste  git foram adicionados documentos referentes a avaliações da cadeira de banco de dados I feitas no instituto federal do rio grande do sul de porto alegre.
 
-<=======================================///===================================================>
+<=====================================///=================================================>
 Definição do Projeto - Parte 1
 Escolher uma realidade para fazer a modelagem (pode ser a a mesma do trabalho de Engenharia de Software e/ou Linguagem de Programação II).
 
@@ -20,7 +20,7 @@ Importante:
 - No mínimo um relacionamento muitos-para-muitos
 
 - Não é necessário utilizar generalização/especialização
-<=========================================///================================================>
+<=====================================///=================================================>
 Exercício 1
 Banco de dados pedido produto.
 
@@ -52,4 +52,4 @@ Consultas para o banco de dados pedido-produto
 8. Apresentar o código do pedido, o nome do cliente e a data do pedido para os pedidos que ainda não foram entregues.
 
 9. Apresentar o código do pedido, nome do cliente, nome do produto, total produto (quantidade*preço do produto). Ordenar pelo código do pedido e pelo nome do produto.
-<=========================================///====================================================>
+<=====================================///=================================================>
