@@ -1,0 +1,174 @@
+create table cliente
+(
+id_cliente number constraint pk_cliente primary key, 
+nome varchar2(10), 
+endereco varchar2(10), 
+telefone varchar2(10)
+);
+
+create table produto
+(id_produto number constraint pk_produto primary key, 
+ nome varchar2(10),
+ preco number, 
+ quantidade_estoque number
+);
+
+create table pedido
+(id_pedido number constraint pk_pedido primary key,
+ id_cliente number, 
+ data_pedido date, 
+ data_entrega date
+);
+
+create table pedido_produto
+(id_pedido number, 
+ id_produto number, 
+ quantidade number, 
+ valor_venda number,
+ constraint pk_pedido_produto primary key(id_pedido, id_produto)
+);
+
+alter table pedido add constraint fk_pedido_produto_id_cliente foreign key(id_cliente) references cliente;
+
+alter table pedido_produto add
+(constraint fk_pedido_produto_id_produto foreign key(id_produto) references produto, 
+ constraint fk_pedido_produto_id_pedido foreign key(id_pedido) references pedido);
+
+create sequence s_cliente start with 100 nocache;
+
+create sequence s_produto start with 200 nocache;
+
+create sequence s_pedido start with 300 nocache;
+--========================================================================================//====================================================================================================
+insert into cliente(id_cliente, nome, endereco, telefone) values(s_cliente.nextval, 'Pedro', 'RuaA', '1111-1111');
+
+insert into cliente(id_cliente, nome, endereco, telefone) values(s_cliente.nextval, 'Ana', 'RuaB', '2222-2222');
+
+insert into cliente(id_cliente, nome, endereco, telefone) values(s_cliente.nextval, 'Maria', 'RuaC', '3333-3333');
+
+insert into produto(id_produto, nome, preco, quantidade_estoque) values(s_produto.nextval, 'mesa', 800, 90);
+
+insert into produto(id_produto, nome, preco, quantidade_estoque) values(s_produto.nextval, 'cadeira', 180, 100);
+
+insert into produto(id_produto, nome, preco, quantidade_estoque) values(s_produto.nextval, 'poltrona', 350, 20);
+
+insert into pedido(id_pedido, id_cliente, data_pedido, data_entrega) 
+values(s_pedido.nextval, 100, to_date('01/06/2018 11:00','dd/mm/yyyy hh24:mi'), to_date('12/06/2018 16:00','dd/mm/yyyy hh24:mi'));
+
+insert into pedido(id_pedido, id_cliente, data_pedido, data_entrega) 
+values(s_pedido.nextval, 102, to_date('20/08/2018 14:00','dd/mm/yyyy hh24:mi'), null);
+
+insert into pedido(id_pedido, id_cliente, data_pedido, data_entrega) 
+values(s_pedido.nextval, 102, to_date('10/09/2018 14:00','dd/mm/yyyy hh24:mi'), to_date('15/09/2018 19:00','dd/mm/yyyy hh24:mi'));
+
+insert into pedido(id_pedido, id_cliente, data_pedido, data_entrega) 
+values(s_pedido.nextval, 100, to_date('07/06/2018 07:30','dd/mm/yyyy hh24:mi'), null);
+
+insert into pedido_produto(id_pedido, id_produto, valor_venda,quantidade) values(300, 200, 800,5);
+
+insert into pedido_produto(id_pedido, id_produto, valor_venda,quantidade) values(301, 201, 180,25);
+
+insert into pedido_produto(id_pedido, id_produto, valor_venda,quantidade) values(301, 200, 800,8);
+
+insert into pedido_produto(id_pedido, id_produto, valor_venda,quantidade) values(302, 201,180, 10);
+
+insert into pedido_produto(id_pedido, id_produto, valor_venda,quantidade) values(302, 200, 800,20);
+
+insert into pedido_produto(id_pedido, id_produto, valor_venda,quantidade) values(303, 201, 180,30);
+--========================================================================================//====================================================================================================
+ --1. Apresentar o nomes dos produtos em ordem crescente.
+ select nome from  produto order by nome;
+ 
+ 
+
+--2. Apresentar os nomes dos produtos, a quantidade em estoque e o preço para os produtos que tem quantidade em estoque superior a 50 ou com preço inferior a 10.
+
+select nome, quantidade_estoque, preco 
+        from produto 
+        where quantidade_estoque >50 or preco < 10;
+
+--3. Apresentar o código do pedido, a data do pedido e o nome do cliente.
+
+select p.id_pedido, p.data_pedido, c.nome 
+        from cliente c inner join pedido p 
+         on c.id_cliente = p.id_cliente;
+
+	select id_pedido, data_pedido, nome 
+        from cliente inner join pedido 
+        on cliente.id_cliente = pedido.id_cliente;
+
+
+--4. Apresentar o código do pedido, o código do produto, o nome do produto, o preço de venda, ordenar pelo código do pedido.
+
+select pedido_produto.id_pedido, pedido_produto.id_produto, produto.nome, 
+        pedido_produto.preco_venda
+	from pedido_produto inner join produto 
+        on pedido_produto.id_produto = produto.id_produto 
+        order by pedido_produto.id_pedido;
+
+
+
+--5. Apresentar os nomes dos produtos que foram pedidos em quantidade superior a 10.
+
+	select distinct  prod.nome 
+        from pedido_produto pp inner join produto prod 
+        on pp.id_produto = prod.id_produto
+        where pp.quantidade > 10;
+        
+--6. Apresentar o código do pedido, a data, o nome do cliente para  os pedidos do produto de código 1.
+
+
+	select pp.id_pedido, ped.data_pedido, c.nome 
+	from pedido_produto pp inner join pedido ped 
+         on pp.id_pedido = ped.id_pedido
+	inner join cliente c 
+         on ped.id_cliente = c.id_cliente
+	where pp.id_produto = 1;
+
+
+
+
+--7. Apresentar o código do pedido, a data, o nome do cliente para os pedidos do produto mesa.
+select ped.id_pedido, ped.data_pedido, c.nome 
+	from pedido ped inner join pedido_produto pp 
+         on pp.id_pedido = ped.id_pedido
+	inner join produto prod 
+         on pp.id_produto = prod.id_produto
+	inner join cliente c
+         on ped.id_cliente = c.id_cliente
+	where prod.nome = 'mesa';
+
+
+--8. Apresentar o código do pedido, o nome do cliente e a 
+--data do pedido para os pedidos que ainda não foram entregues.
+select ped.id_pedido, c.nome, ped.data_pedido
+        from pedido ped inner join cliente c 
+          on c.id_cliente = ped.id_cliente
+	where data_entrega is null;
+--9. Apresentar o código do pedido, nome do cliente, nome do produto, 
+--total produto (quantidade*preço do produto).
+-- Ordenar pelo código do pedido e pelo nome do produto.
+select ped.id_pedido, c.nome, prod.nome, 
+         (pp.quantidade * pp.preco_venda) as total_produto 
+	from pedido ped inner join cliente c 
+         on ped.id_cliente = c.id_cliente
+	inner join pedido_produto pp 
+         on pp.id_pedido = ped.id_pedido
+	inner join produto prod 
+         on prod.id_produto = pp.id_produto
+	order by ped.id_pedido, prod.nome;
+--========================================================================================//====================================================================================================
+drop table pedido_produto;
+
+drop table pedido;
+
+drop table produto cascade constraints;
+
+drop table cliente;
+
+drop sequence s_produto;
+
+drop sequence s_cliente;
+
+drop sequence s_pedido;
+--========================================================================================//====================================================================================================
