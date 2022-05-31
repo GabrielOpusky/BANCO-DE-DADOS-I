@@ -3,6 +3,7 @@ Neste  git foram adicionados documentos referentes a avaliações da cadeira de 
 
 
 --====
+
 Definição do Projeto - Parte 1
 Escolher uma realidade para fazer a modelagem (pode ser a a mesma do trabalho de Engenharia de Software e/ou Linguagem de Programação II).
 
@@ -21,6 +22,8 @@ Importante:
 - No mínimo um relacionamento muitos-para-muitos
 
 - Não é necessário utilizar generalização/especialização
+
+
 --=====
 
 Exercício 1
@@ -34,7 +37,9 @@ pedido_produto(id_pedido,id_produto,preco_venda,quantidade) fk: id_pedido, id_pr
 Criar o arquivo create.sql (create das tabelas e das sequences).
 Criar o arquivo drop (drop das tabelas e das sequences).
 Criar o arquivo insert (com o insert das tabelas).
+
 --====
+
 Exercício 2
 Consultas para o banco de dados pedido-produto
 
@@ -55,4 +60,5 @@ Consultas para o banco de dados pedido-produto
 8. Apresentar o código do pedido, o nome do cliente e a data do pedido para os pedidos que ainda não foram entregues.
 
 9. Apresentar o código do pedido, nome do cliente, nome do produto, total produto (quantidade*preço do produto). Ordenar pelo código do pedido e pelo nome do produto.
+
 --====
